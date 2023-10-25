@@ -2,8 +2,11 @@ package tetofo.spring.tetofospringdashboard.Model.DTO;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import tetofo.spring.tetofospringdashboard.Model.Enum.Tag;
 
+@JsonFormat(with = JsonFormat.Feature.ACCEPT_CASE_INSENSITIVE_PROPERTIES)
 public class DataDTO {
     private List<Tag> tags;
     private String payload;

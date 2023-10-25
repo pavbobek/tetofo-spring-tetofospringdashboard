@@ -6,6 +6,7 @@ public enum Tag {
     DIRECTORY_PATH,
     FILENAME,
     MESSAGE,
+    PERSISTENCE_FILE,
     STRING;
 
     @JsonValue
