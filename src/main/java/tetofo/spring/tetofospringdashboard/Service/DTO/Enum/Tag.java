@@ -1,4 +1,4 @@
-package tetofo.spring.tetofospringdashboard.Model.Enum;
+package tetofo.spring.tetofospringdashboard.Service.DTO.Enum;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 

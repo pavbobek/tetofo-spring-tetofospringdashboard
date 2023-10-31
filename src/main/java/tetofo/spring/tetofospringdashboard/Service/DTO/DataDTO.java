@@ -1,10 +1,10 @@
-package tetofo.spring.tetofospringdashboard.Model.DTO;
+package tetofo.spring.tetofospringdashboard.Service.DTO;
 
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import tetofo.spring.tetofospringdashboard.Model.Enum.Tag;
+import tetofo.spring.tetofospringdashboard.Service.DTO.Enum.Tag;
 
 @JsonFormat(with = JsonFormat.Feature.ACCEPT_CASE_INSENSITIVE_PROPERTIES)
 public class DataDTO {

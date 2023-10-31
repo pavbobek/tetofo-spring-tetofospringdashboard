@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import tetofo.spring.tetofospringdashboard.Model.DTO.DataDTO;
+import tetofo.spring.tetofospringdashboard.Service.DTO.DataDTO;
 import tetofo.spring.tetofospringdashboard.Service.DAO.IDAO;
 import tetofo.spring.tetofospringdashboard.Service.Exception.ServiceException;
 
