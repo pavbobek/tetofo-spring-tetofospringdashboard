@@ -1,29 +1,29 @@
 package tetofo.spring.tetofospringdashboard.Service.DTO.Impl;
 
-import java.util.List;
+import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import tetofo.spring.tetofospringdashboard.Service.DTO.IDTO;
-import tetofo.spring.tetofospringdashboard.Service.DTO.Enum.Tag;
+import tetofo.spring.tetofospringdashboard.Service.DTO.Enum.TagDTO;
 
 @JsonFormat(with = JsonFormat.Feature.ACCEPT_CASE_INSENSITIVE_PROPERTIES)
 public class DataDTO implements IDTO {
-    private List<Tag> tags;
+    private Set<TagDTO> tags;
     private String payload;
-    private List<DataDTO> members;
+    private Set<DataDTO> members;
     public DataDTO() {
 
     }
-    public DataDTO(List<Tag> tags, String payload, List<DataDTO> members) {
+    public DataDTO(Set<TagDTO> tags, String payload, Set<DataDTO> members) {
         this.tags = tags;
         this.payload = payload;
         this.members = members;
     }
-    public List<Tag> getTags() {
+    public Set<TagDTO> getTags() {
         return tags;
     }
-    public void setTags(List<Tag> tags) {
+    public void setTags(Set<TagDTO> tags) {
         this.tags = tags;
     }
     public String getPayload() {
@@ -32,10 +32,10 @@ public class DataDTO implements IDTO {
     public void setPayload(String payload) {
         this.payload = payload;
     }
-    public List<DataDTO> getMembers() {
+    public Set<DataDTO> getMembers() {
         return members;
     }
-    public void setMembers(List<DataDTO> members) {
+    public void setMembers(Set<DataDTO> members) {
         this.members = members;
     }
     @Override

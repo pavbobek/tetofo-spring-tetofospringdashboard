@@ -12,6 +12,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import tetofo.spring.tetofospringdashboard.Model.Entity.IEntity;
+import tetofo.spring.tetofospringdashboard.Model.Entity.Enum.TagEntity;
 
 @Entity
 public class DataEntity implements IEntity {
@@ -19,6 +20,7 @@ public class DataEntity implements IEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(unique = true)
     private Long id;
+    private Set<TagEntity> tags;
     private String payload;
     @OneToMany(mappedBy="parent")
     private Set<DataEntity> members;
@@ -48,5 +50,11 @@ public class DataEntity implements IEntity {
     }
     public void setParent(DataEntity parent) {
         this.parent = parent;
+    }
+    public Set<TagEntity> getTags() {
+        return tags;
+    }
+    public void setTags(Set<TagEntity> tags) {
+        this.tags = tags;
     }
 }

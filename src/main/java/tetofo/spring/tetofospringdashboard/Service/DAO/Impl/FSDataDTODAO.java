@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 
 import tetofo.spring.tetofospringdashboard.Service.DAO.IDAO;
 import tetofo.spring.tetofospringdashboard.Service.DAO.Exception.DAOException;
-import tetofo.spring.tetofospringdashboard.Service.DTO.Enum.Tag;
+import tetofo.spring.tetofospringdashboard.Service.DTO.Enum.TagDTO;
 import tetofo.spring.tetofospringdashboard.Service.DTO.Impl.DataDTO;
 import tetofo.spring.tetofospringdashboard.Service.Mapper.IJsonMapper;
 import tetofo.spring.tetofospringdashboard.Service.Mapper.Exception.MapperException;
@@ -31,9 +31,9 @@ public class FSDataDTODAO implements IDAO<DataDTO, DataDTO> {
     private String exchangeFolder = "C:\\exchange"; 
 
     public static final List<DataDTO> items = Arrays.asList(
-        new DataDTO(Collections.singletonList(Tag.STRING), "Hello SPRING dashboard.",null),
-        new DataDTO(Collections.singletonList(Tag.STRING), "It is me",null),
-        new DataDTO(Collections.singletonList(Tag.STRING), "Another Test content.", null)
+        new DataDTO(Collections.singleton(TagDTO.STRING), "Hello SPRING dashboard.",null),
+        new DataDTO(Collections.singleton(TagDTO.STRING), "It is me",null),
+        new DataDTO(Collections.singleton(TagDTO.STRING), "Another Test content.", null)
     );
 
     @Override
