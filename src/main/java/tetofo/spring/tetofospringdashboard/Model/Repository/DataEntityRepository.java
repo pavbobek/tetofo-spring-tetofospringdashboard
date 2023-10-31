@@ -6,4 +6,4 @@ import org.springframework.stereotype.Repository;
 import tetofo.spring.tetofospringdashboard.Model.Entity.Impl.DataEntity;
 
 @Repository
-public interface DataRepository extends CrudRepository<DataEntity, Long> {}
+public interface DataEntityRepository extends CrudRepository<DataEntity, Long> {}

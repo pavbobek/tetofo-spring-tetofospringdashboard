@@ -21,7 +21,7 @@ import tetofo.spring.tetofospringdashboard.Service.DTO.Impl.DataDTO;
 import tetofo.spring.tetofospringdashboard.Service.Mapper.IJsonMapper;
 import tetofo.spring.tetofospringdashboard.Service.Mapper.Exception.MapperException;
 
-@Service
+@Service("FSDataDTODAO")
 public class FSDataDTODAO implements IDAO<DataDTO, DataDTO> {
 
     private static final Logger LOG = LoggerFactory.getLogger(FSDataDTODAO.class); 
@@ -62,13 +62,13 @@ public class FSDataDTODAO implements IDAO<DataDTO, DataDTO> {
     }
 
     @Override
-    public void update(DataDTO r, DataDTO s) throws DAOException{
-        //TODO
+    public void update(DataDTO s) throws DAOException{
+        throw new DAOException("Unimplemented method 'update'");
     }
 
     @Override
-    public void delete(DataDTO r) throws DAOException {
-        // TODO
+    public void delete(DataDTO s) throws DAOException {
+        throw new DAOException("Unimplemented method 'delete'");
     }
 
     private static DataDTO asDataDTO(IJsonMapper jsonMapper, Path path) throws DAOException {
@@ -83,6 +83,11 @@ public class FSDataDTODAO implements IDAO<DataDTO, DataDTO> {
         } catch (MapperException e) {
             throw new DAOException("Unable to read content as DataDTO.",e);
         }
+    }
+
+    @Override
+    public void save(DataDTO r) throws DAOException {
+        throw new DAOException("Unimplemented method 'create'");
     }
     
 }
