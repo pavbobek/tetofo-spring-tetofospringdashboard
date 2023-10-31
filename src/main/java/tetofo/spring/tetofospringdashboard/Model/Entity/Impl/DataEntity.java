@@ -1,4 +1,4 @@
-package tetofo.spring.tetofospringdashboard.Model.Entity;
+package tetofo.spring.tetofospringdashboard.Model.Entity.Impl;
 
 import java.util.Set;
 
@@ -11,9 +11,10 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import tetofo.spring.tetofospringdashboard.Model.Entity.IEntity;
 
 @Entity
-public class DataEntity {
+public class DataEntity implements IEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(unique = true)

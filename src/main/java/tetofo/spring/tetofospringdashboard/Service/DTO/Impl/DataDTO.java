@@ -1,13 +1,14 @@
-package tetofo.spring.tetofospringdashboard.Service.DTO;
+package tetofo.spring.tetofospringdashboard.Service.DTO.Impl;
 
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import tetofo.spring.tetofospringdashboard.Service.DTO.IDTO;
 import tetofo.spring.tetofospringdashboard.Service.DTO.Enum.Tag;
 
 @JsonFormat(with = JsonFormat.Feature.ACCEPT_CASE_INSENSITIVE_PROPERTIES)
-public class DataDTO {
+public class DataDTO implements IDTO {
     private List<Tag> tags;
     private String payload;
     private List<DataDTO> members;

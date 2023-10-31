@@ -16,8 +16,8 @@ import org.springframework.stereotype.Service;
 
 import tetofo.spring.tetofospringdashboard.Service.DAO.IDAO;
 import tetofo.spring.tetofospringdashboard.Service.DAO.Exception.DAOException;
-import tetofo.spring.tetofospringdashboard.Service.DTO.DataDTO;
 import tetofo.spring.tetofospringdashboard.Service.DTO.Enum.Tag;
+import tetofo.spring.tetofospringdashboard.Service.DTO.Impl.DataDTO;
 import tetofo.spring.tetofospringdashboard.Service.Mapper.IJsonMapper;
 import tetofo.spring.tetofospringdashboard.Service.Mapper.Exception.MapperException;
 
