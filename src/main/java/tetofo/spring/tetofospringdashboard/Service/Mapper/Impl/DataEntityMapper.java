@@ -7,8 +7,8 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
-import tetofo.spring.tetofospringdashboard.Model.Entity.Enum.TagEntity;
 import tetofo.spring.tetofospringdashboard.Model.Entity.Impl.DataEntity;
+import tetofo.spring.tetofospringdashboard.Model.Entity.Impl.TagEntity;
 import tetofo.spring.tetofospringdashboard.Service.DTO.Enum.TagDTO;
 import tetofo.spring.tetofospringdashboard.Service.DTO.Impl.DataDTO;
 import tetofo.spring.tetofospringdashboard.Service.Mapper.IEntityMapper;
@@ -38,6 +38,7 @@ public class DataEntityMapper implements IEntityMapper<DataEntity, DataDTO> {
             final DataDTO recordDTO = new DataDTO();
             recordDTO.setTags(Collections.singleton(TagDTO.RECORD));
             recordDTO.setPayload(idString);
+            members.add(recordDTO);
         }
         if (r.getMembers() != null && !r.getMembers().isEmpty()) {
             final Set<MapperException> mapperExceptions = new HashSet<>();
@@ -85,14 +86,18 @@ public class DataEntityMapper implements IEntityMapper<DataEntity, DataDTO> {
     }
 
     private static TagDTO asTagDTO(TagEntity tagEntity) throws MapperException {
-        return switch (tagEntity) {
-            case DIRECTORY_PATH -> TagDTO.DIRECTORY_PATH;
-            case FILENAME -> TagDTO.FILENAME;
-            case MESSAGE -> TagDTO.MESSAGE;
-            case PERSISTENCE_FILE -> TagDTO.PERSISTENCE_FILE;
-            case STRING -> TagDTO.STRING;
-            default -> throw new MapperException(String.format("Unable to cast %s to TagDTO", tagEntity));
-        };
+        if (TagEntity.DIRECTORY_PATH.equals(tagEntity)) {
+            return TagDTO.DIRECTORY_PATH;
+        } else if (TagEntity.FILENAME.equals(tagEntity)) {
+            return TagDTO.FILENAME;
+        } else if (TagEntity.MESSAGE.equals(tagEntity)) {
+            return TagDTO.MESSAGE;
+        } else if (TagEntity.PERSISTENCE_FILE.equals(tagEntity)) {
+            return TagDTO.PERSISTENCE_FILE;
+        }  else if (TagEntity.STRING.equals(tagEntity)) {
+            return TagDTO.STRING;
+        }
+        throw new MapperException(String.format("Unable to cast %s to TagDTO", tagEntity));
     }
     
     private static DataEntity asEntity(DataDTO dataDTO, DataEntity parent) throws MapperException {
@@ -138,6 +143,9 @@ public class DataEntityMapper implements IEntityMapper<DataEntity, DataDTO> {
     }
 
     private static Set<DataEntity> asMembers(Set<DataDTO> dataDTOs, DataEntity parent) throws MapperException {
+        if (dataDTOs == null) {
+            return null;
+        } 
         final Set<MapperException> mapperExceptions = new HashSet<>();
         final Set<DataEntity> dataEntities = new HashSet<>();
         dataDTOs.forEach(item -> {

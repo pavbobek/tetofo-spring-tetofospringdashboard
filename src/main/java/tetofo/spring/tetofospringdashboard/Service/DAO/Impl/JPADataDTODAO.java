@@ -3,6 +3,8 @@ package tetofo.spring.tetofospringdashboard.Service.DAO.Impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.OptimisticLockingFailureException;
 import org.springframework.stereotype.Service;
@@ -41,7 +43,7 @@ public class JPADataDTODAO implements IDAO<DataDTO, DataDTO> {
             try {
                 dataDTOs.add(dataEntityMapper.fromEntity(dataEntity));
             } catch (MapperException e) {
-                throw new DAOException("Unable to map entity: %s".formatted(dataEntity));
+                throw new DAOException("Unable to map entity: %s".formatted(dataEntity), e);
             }
         }     
         return dataDTOs;
@@ -58,6 +60,7 @@ public class JPADataDTODAO implements IDAO<DataDTO, DataDTO> {
 
     @Override
     public void update(DataDTO s) throws DAOException {
+        delete(s);
         save(s);
     }
 
