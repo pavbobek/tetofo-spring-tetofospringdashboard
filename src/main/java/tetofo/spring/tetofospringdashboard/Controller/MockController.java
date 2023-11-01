@@ -1,7 +1,7 @@
 package tetofo.spring.tetofospringdashboard.Controller;
 
-import java.util.ArrayList;
-import java.util.Collections;
+//import java.util.ArrayList;
+//import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 import tetofo.spring.tetofospringdashboard.Model.Entity.Impl.TagEntity;
 import tetofo.spring.tetofospringdashboard.Model.Repository.TagEntityRepository;
 import tetofo.spring.tetofospringdashboard.Service.DAO.IDAO;
-import tetofo.spring.tetofospringdashboard.Service.DAO.Exception.DAOException;
-import tetofo.spring.tetofospringdashboard.Service.DTO.Enum.TagDTO;
+//import tetofo.spring.tetofospringdashboard.Service.DAO.Exception.DAOException;
+//import tetofo.spring.tetofospringdashboard.Service.DTO.Enum.TagDTO;
 import tetofo.spring.tetofospringdashboard.Service.DTO.Impl.DataDTO;
 import tetofo.spring.tetofospringdashboard.Service.Exception.ServiceException;
 
@@ -29,7 +29,7 @@ public class MockController {
     @Autowired
     private TagEntityRepository tagEntityRepository;
 
-    private boolean done;
+    //private boolean done;
 
     @GetMapping("/mock/JPA/getAll")
     public List<DataDTO> getAllJPA() throws ServiceException {
