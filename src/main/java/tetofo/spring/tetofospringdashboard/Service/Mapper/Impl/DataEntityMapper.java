@@ -94,8 +94,14 @@ public class DataEntityMapper implements IEntityMapper<DataEntity, DataDTO> {
             return TagDTO.MESSAGE;
         } else if (TagEntity.PERSISTENCE_FILE.equals(tagEntity)) {
             return TagDTO.PERSISTENCE_FILE;
+        } else if (TagEntity.RECORD.equals(tagEntity)) {
+            return TagDTO.RECORD;
         }  else if (TagEntity.STRING.equals(tagEntity)) {
             return TagDTO.STRING;
+        } else if (TagEntity.USER.equals(tagEntity)) {
+            return TagDTO.USER;
+        } else if (TagEntity.USERNAME.equals(tagEntity)) {
+            return TagDTO.USERNAME;
         }
         throw new MapperException(String.format("Unable to cast %s to TagDTO", tagEntity));
     }
@@ -137,7 +143,10 @@ public class DataEntityMapper implements IEntityMapper<DataEntity, DataDTO> {
             case FILENAME -> TagEntity.FILENAME;
             case MESSAGE -> TagEntity.MESSAGE;
             case PERSISTENCE_FILE -> TagEntity.PERSISTENCE_FILE;
+            case RECORD -> TagEntity.RECORD;
             case STRING -> TagEntity.STRING;
+            case USER -> TagEntity.USER;
+            case USERNAME -> TagEntity.USERNAME;
             default -> throw new MapperException(String.format("Unable to cast %s to TagEntity", tagDTO));
         };
     }

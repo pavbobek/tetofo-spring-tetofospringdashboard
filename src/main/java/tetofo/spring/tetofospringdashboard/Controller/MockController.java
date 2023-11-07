@@ -24,7 +24,7 @@ public class MockController {
     @Qualifier("FSDataDTODAO")
     private IDAO<DataDTO, DataDTO> fSDataDTODAO;
     @Autowired
-    @Qualifier("JPADataDTODAO")
+    @Qualifier("DataDTODAO")
     private IDAO<DataDTO, DataDTO> jPADataDTODAO;
     @Autowired
     private TagEntityRepository tagEntityRepository;

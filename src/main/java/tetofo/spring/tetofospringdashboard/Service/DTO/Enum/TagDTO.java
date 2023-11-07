@@ -7,8 +7,10 @@ public enum TagDTO {
     FILENAME,
     MESSAGE,
     PERSISTENCE_FILE,
+    RECORD,
     STRING,
-    RECORD;
+    USER,
+    USERNAME;
 
     @JsonValue
     public int toValue() {

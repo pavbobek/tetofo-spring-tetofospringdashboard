@@ -21,10 +21,13 @@ public class TagEntity implements IEntity {
     private Set<DataEntity> data;
 
     public static final TagEntity DIRECTORY_PATH = new TagEntity(0l);
-    public static final TagEntity FILENAME = new TagEntity(0l);
-    public static final TagEntity MESSAGE = new TagEntity(0l);
-    public static final TagEntity PERSISTENCE_FILE = new TagEntity(0l);
-    public static final TagEntity STRING = new TagEntity(0l);
+    public static final TagEntity FILENAME = new TagEntity(1l);
+    public static final TagEntity MESSAGE = new TagEntity(2l);
+    public static final TagEntity PERSISTENCE_FILE = new TagEntity(3l);
+    public static final TagEntity RECORD = new TagEntity(4l);
+    public static final TagEntity STRING = new TagEntity(5l);
+    public static final TagEntity USER = new TagEntity(6l);
+    public static final TagEntity USERNAME = new TagEntity(7l);
 
     public TagEntity() {}
 
