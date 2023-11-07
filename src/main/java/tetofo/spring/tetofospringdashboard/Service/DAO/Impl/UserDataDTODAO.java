@@ -36,6 +36,10 @@ public class UserDataDTODAO implements IUserDataDTODAO {
     public void save(DataDTO r) throws DAOException {
         DAOException.requireNonNull(r, "Saving null object.");
         DAOException.requirePresence(r.getTags(), TagDTO.USER, "Input is not user.");
+        DAOException.requireNonNull(r.getPayload(), "Saving empty object.");
+        if (dataEntityRepository.findByTagsIdAndPayloadContains(TagEntity.USER.getId(), r.getPayload()).isPresent()) {
+            throw new DAOException("Saving duplicate user.");
+        }
         try {
             dataEntityRepository.save(dataEntityMapper.toEntity(r));
         } catch (IllegalArgumentException | MapperException | OptimisticLockingFailureException e) {
@@ -45,7 +49,7 @@ public class UserDataDTODAO implements IUserDataDTODAO {
     @Override
     public List<DataDTO> getAll() throws DAOException {
         final List<DataDTO> dataDTOs = new ArrayList<>();
-        final Iterable<DataEntity> dataEntities =  dataEntityRepository.findByTags(TagEntity.USER);
+        final Iterable<DataEntity> dataEntities =  dataEntityRepository.findByTag(TagEntity.USER);
         for (DataEntity dataEntity : dataEntities) {
             try {
                 dataDTOs.add(dataEntityMapper.fromEntity(dataEntity));
