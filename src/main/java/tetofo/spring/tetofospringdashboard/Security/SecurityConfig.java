@@ -14,13 +14,18 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.servlet.util.matcher.MvcRequestMatcher;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+
+import tetofo.spring.tetofospringdashboard.Filter.JWTFilter;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
 
-    @Autowired
-    private UserDetailsService userDetailsService;
+	@Autowired
+	private JWTFilter jwtFilter;
 
     @Bean
 	public AuthenticationManager authenticationManager(
@@ -36,14 +41,17 @@ public class SecurityConfig {
     @Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http
-			.authorizeHttpRequests((authorize) -> authorize
-				.anyRequest().authenticated()
-			)
-			.httpBasic(Customizer.withDefaults())
-			.formLogin(Customizer.withDefaults())
+			.csrf(csrf -> csrf.disable())
+			.authorizeHttpRequests(autorize -> {
+				autorize.requestMatchers(AntPathRequestMatcher.antMatcher("/auth/**"))
+					.permitAll()
+				.anyRequest()
+				.authenticated();
+			})
 			.sessionManagement((session) -> session
 				.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-			);
+			)
+			.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);			
 
 		return http.build();
 	}
