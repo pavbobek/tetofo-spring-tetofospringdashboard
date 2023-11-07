@@ -25,10 +25,10 @@ public class DataDTODAO implements IDAO<DataDTO, DataDTO> {
     private DataEntityRepository dataEntityRepository;
 
     @Override
-    public void save(DataDTO r) throws DAOException {
+    public DataDTO save(DataDTO r) throws DAOException {
         DAOException.requireNonNull(r, "DataDTO is null.");
         try {
-            dataEntityRepository.save(dataEntityMapper.toEntity(r));
+            return dataEntityMapper.fromEntity(dataEntityRepository.save(dataEntityMapper.toEntity(r)));
         } catch (IllegalArgumentException | MapperException | OptimisticLockingFailureException e) {
             throw new DAOException("Unable to save entity %s.".formatted(r), e);
         }

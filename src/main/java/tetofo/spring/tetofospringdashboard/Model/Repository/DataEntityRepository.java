@@ -11,7 +11,10 @@ import tetofo.spring.tetofospringdashboard.Model.Entity.Impl.TagEntity;
 
 @Repository
 public interface DataEntityRepository extends CrudRepository<DataEntity, Long> {
+    public void deleteByPayload(String string);
+    public List<DataEntity> findByPayload(String string); 
     public List<DataEntity> findByTags(TagEntity tagEntity);
     public List<DataEntity> findByTagsId(Long tagId);
-    public Optional<DataEntity> findByTagsIdAndPayloadContains(Long id, String string); 
+    public Optional<DataEntity> findByTagsIdAndPayloadContains(Long id, String string);
+    
 }

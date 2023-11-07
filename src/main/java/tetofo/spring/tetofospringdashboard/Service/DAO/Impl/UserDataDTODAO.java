@@ -33,7 +33,7 @@ public class UserDataDTODAO implements IUserDataDTODAO {
     private DataEntityRepository dataEntityRepository;
 
     @Override
-    public void save(DataDTO r) throws DAOException {
+    public DataDTO save(DataDTO r) throws DAOException {
         DAOException.requireNonNull(r, "Saving null object.");
         DAOException.requirePresence(r.getTags(), TagDTO.USER, "Input is not user.");
         DAOException.requireNonNull(r.getPayload(), "Saving empty object.");
@@ -41,7 +41,7 @@ public class UserDataDTODAO implements IUserDataDTODAO {
             throw new DAOException("Saving duplicate user.");
         }
         try {
-            dataEntityRepository.save(dataEntityMapper.toEntity(r));
+            return dataEntityMapper.fromEntity(dataEntityRepository.save(dataEntityMapper.toEntity(r)));
         } catch (IllegalArgumentException | MapperException | OptimisticLockingFailureException e) {
             throw new DAOException("Unable to save entity %s.".formatted(r), e);
         }
@@ -71,8 +71,18 @@ public class UserDataDTODAO implements IUserDataDTODAO {
     }
     @Override
     public void update(DataDTO s) throws DAOException {
+        final Long previousId = DAOs.getId(s, dataEntityMapper);
+        final String previousIdString = previousId.toString();
+        final List<DataEntity> members = dataEntityRepository.findByPayload(previousIdString);
         delete(s);
-        save(s);
+        final DataDTO newDataDTO = save(s);
+        final Long newId = DAOs.getId(newDataDTO, dataEntityMapper);
+        final String newIdString = newId.toString();
+        for(DataEntity dataEntity : members) {
+            dataEntityRepository.delete(dataEntity);
+            dataEntity.setPayload(newIdString);
+            dataEntityRepository.save(dataEntity);
+        }
     }
     @Override
     public void delete(DataDTO s) throws DAOException {
