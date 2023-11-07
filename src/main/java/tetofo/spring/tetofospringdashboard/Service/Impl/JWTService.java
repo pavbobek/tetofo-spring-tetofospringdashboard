@@ -9,6 +9,7 @@ import java.util.function.Function;
 
 import javax.crypto.SecretKey;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +22,11 @@ import io.jsonwebtoken.security.InvalidKeyException;
 import io.jsonwebtoken.security.Keys;
 import io.jsonwebtoken.security.WeakKeyException;
 import tetofo.spring.tetofospringdashboard.Service.IJWTService;
+import tetofo.spring.tetofospringdashboard.Service.DTO.DTOs;
+import tetofo.spring.tetofospringdashboard.Service.DTO.Enum.TagDTO;
+import tetofo.spring.tetofospringdashboard.Service.DTO.Impl.DataDTO;
 import tetofo.spring.tetofospringdashboard.Service.Exception.ServiceException;
+import tetofo.spring.tetofospringdashboard.Service.Mapper.IJsonMapper;
 
 /**
  * 
@@ -33,23 +38,27 @@ import tetofo.spring.tetofospringdashboard.Service.Exception.ServiceException;
  */
 @Service
 public class JWTService implements IJWTService {
+    @Autowired
+    private IJsonMapper jsonMapper;
 
     private static final String SECRET_KEY = "dGV0b2Zv";    //security violation! statics keys in code! consicer moving this to DB !!!
 
     @Override
-    public String createJWT(UserDetails userDetails) throws ServiceException {
-        ServiceException.requireNonNull(userDetails, "UserDetails is null.");
-        return createJWT(Collections.emptyMap(), userDetails);
+    public DataDTO createJWT(DataDTO userDataDTO) throws ServiceException {
+        ServiceException.requireNonNull(userDataDTO, "userDataDTO is null.");
+        ServiceException.requirePresence(userDataDTO.getTags(), TagDTO.USER, "DataDTO is not user.");
+        return createJWT(Collections.emptyMap(), userDataDTO);
     }
 
     @Override
-    public String createJWT(Map<String, Object> claims, UserDetails userDetails) throws ServiceException {
-        ServiceException.requireNonNull(claims, "Claims is null.");
-        ServiceException.requireNonNull(userDetails, "UserDetails is null.");
+    public DataDTO createJWT(Map<String, Object> claims, DataDTO userDataDTO) throws ServiceException {
+        ServiceException.requireNonNull(userDataDTO, "userDataDTO is null.");
+        ServiceException.requirePresence(userDataDTO.getTags(), TagDTO.USER, "DataDTO is not user.");
+        final String jwt;
         try {
-            return Jwts.builder()
+            jwt = Jwts.builder()
             .claims(claims)
-            .subject(userDetails.getUsername())
+            .subject(DTOs.getUserDataDTOUsername(userDataDTO, jsonMapper))
             .issuedAt(new Date())
             .expiration(new Date(Instant.now().plus(1, ChronoUnit.HOURS).toEpochMilli()))
             .signWith(getSigningKey())
@@ -57,7 +66,7 @@ public class JWTService implements IJWTService {
         } catch (InvalidKeyException e) {
             throw new ServiceException("Unable to create JWT", e);
         }
-        
+        return DTOs.createJWTDataDTO(jwt);
     }
 
     @Override

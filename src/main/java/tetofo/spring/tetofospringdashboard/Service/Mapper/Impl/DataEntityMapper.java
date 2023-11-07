@@ -90,6 +90,8 @@ public class DataEntityMapper implements IEntityMapper<DataEntity, DataDTO> {
             return TagDTO.DIRECTORY_PATH;
         } else if (TagEntity.FILENAME.equals(tagEntity)) {
             return TagDTO.FILENAME;
+        } else if (TagEntity.JWT.equals(tagEntity)) {
+            return TagDTO.JWT;
         } else if (TagEntity.MESSAGE.equals(tagEntity)) {
             return TagDTO.MESSAGE;
         } else if (TagEntity.PERSISTENCE_FILE.equals(tagEntity)) {
@@ -141,6 +143,7 @@ public class DataEntityMapper implements IEntityMapper<DataEntity, DataDTO> {
         return switch (tagDTO) {
             case DIRECTORY_PATH -> TagEntity.DIRECTORY_PATH;
             case FILENAME -> TagEntity.FILENAME;
+            case JWT -> TagEntity.JWT;
             case MESSAGE -> TagEntity.MESSAGE;
             case PERSISTENCE_FILE -> TagEntity.PERSISTENCE_FILE;
             case RECORD -> TagEntity.RECORD;

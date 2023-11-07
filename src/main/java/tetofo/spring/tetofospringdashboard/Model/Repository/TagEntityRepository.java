@@ -13,6 +13,7 @@ public interface TagEntityRepository extends CrudRepository<TagEntity, Long> {
     public default void postConstruct() {
         save(TagEntity.DIRECTORY_PATH);
         save(TagEntity.FILENAME);
+        save(TagEntity.JWT);
         save(TagEntity.MESSAGE);
         save(TagEntity.PERSISTENCE_FILE);
         save(TagEntity.RECORD);

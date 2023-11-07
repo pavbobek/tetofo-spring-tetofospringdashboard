@@ -4,6 +4,7 @@ import java.util.Map;
 
 import org.springframework.security.core.userdetails.UserDetails;
 
+import tetofo.spring.tetofospringdashboard.Service.DTO.Impl.DataDTO;
 import tetofo.spring.tetofospringdashboard.Service.Exception.ServiceException;
 
 /**
@@ -17,25 +18,25 @@ import tetofo.spring.tetofospringdashboard.Service.Exception.ServiceException;
 public interface IJWTService {
     /**
      * 
-     * Create JWT from userDetails.
+     * Create JWT from user DataDTO.
      * 
-     * @param userDetails used userDetails
-     * @return  JWT
+     * @param userDataDTO used user DataDTO
+     * @return  JWT DataDTO
      * @throws ServiceException on failure
      * 
      */
-    public String createJWT(UserDetails userDetails) throws ServiceException;
+    public DataDTO createJWT(DataDTO userDataDTO) throws ServiceException;
     /**
     * 
-    * Create JWT from userDetails with additional claims.
+    * Create JWT from user DataDTO with additional claims.
     *
     * @param claims additional claims used
-    * @param userDetails used userDetails
-    * @return JWT
+    * @param userDataDTO used user DataDTO
+    * @return JWT DataDTO
     * @throws ServiceException on failure
     *
     */
-    public String createJWT(Map<String, Object> claims, UserDetails userDetails) throws ServiceException;
+    public DataDTO createJWT(Map<String, Object> claims, DataDTO userDataDTO) throws ServiceException;
     /**
      * 
      * Get username from JWT.

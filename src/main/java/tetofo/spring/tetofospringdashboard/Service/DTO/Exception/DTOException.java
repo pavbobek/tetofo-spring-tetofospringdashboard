@@ -1,6 +1,8 @@
 package tetofo.spring.tetofospringdashboard.Service.DTO.Exception;
 
 import java.util.Set;
+
+import tetofo.spring.tetofospringdashboard.Service.Exception.ServiceException;
 /**
  * 
  * DTOException
@@ -9,7 +11,7 @@ import java.util.Set;
  * @mail pavbobek@seznam.cz
  * 
  */
-public class DTOException extends Exception {
+public class DTOException extends ServiceException {
     public DTOException() {super();}
     public DTOException(String msg) {super(msg);}
     public DTOException(String msg, Exception e) {super(msg, e);}
