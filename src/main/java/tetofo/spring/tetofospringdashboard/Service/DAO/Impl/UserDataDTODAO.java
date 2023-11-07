@@ -49,7 +49,7 @@ public class UserDataDTODAO implements IUserDataDTODAO {
     @Override
     public List<DataDTO> getAll() throws DAOException {
         final List<DataDTO> dataDTOs = new ArrayList<>();
-        final Iterable<DataEntity> dataEntities =  dataEntityRepository.findByTag(TagEntity.USER);
+        final Iterable<DataEntity> dataEntities =  dataEntityRepository.findByTags(TagEntity.USER);
         for (DataEntity dataEntity : dataEntities) {
             try {
                 dataDTOs.add(dataEntityMapper.fromEntity(dataEntity));
