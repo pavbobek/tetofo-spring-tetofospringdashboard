@@ -6,26 +6,36 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import tetofo.spring.tetofospringdashboard.Model.Entity.Impl.TagEntity;
 import tetofo.spring.tetofospringdashboard.Model.Repository.TagEntityRepository;
+import tetofo.spring.tetofospringdashboard.Service.IAuthService;
 import tetofo.spring.tetofospringdashboard.Service.DAO.IDAO;
+import tetofo.spring.tetofospringdashboard.Service.DTO.DTOs;
 //import tetofo.spring.tetofospringdashboard.Service.DAO.Exception.DAOException;
 //import tetofo.spring.tetofospringdashboard.Service.DTO.Enum.TagDTO;
 import tetofo.spring.tetofospringdashboard.Service.DTO.Impl.DataDTO;
 import tetofo.spring.tetofospringdashboard.Service.Exception.ServiceException;
+import tetofo.spring.tetofospringdashboard.Service.Mapper.IJsonMapper;
 
 @RestController
 public class MockController {
-
+    @Autowired
+    private IAuthService authService;
     @Autowired
     @Qualifier("FSDataDTODAO")
     private IDAO<DataDTO, DataDTO> fSDataDTODAO;
     @Autowired
     @Qualifier("DataDTODAO")
     private IDAO<DataDTO, DataDTO> jPADataDTODAO;
+    @Autowired 
+    private IJsonMapper jsonMapper;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
     @Autowired
     private TagEntityRepository tagEntityRepository;
 
@@ -76,6 +86,12 @@ public class MockController {
     @GetMapping("/mock/FS/getAll")
     public List<DataDTO> getAllFS() throws ServiceException {
         return fSDataDTODAO.getAll();
+    }
+
+    @GetMapping("/mock/createMockUser")
+    public ResponseEntity<DataDTO> createMOckUser() throws ServiceException {
+        DataDTO userDataDTO = DTOs.createUserDataDTO("mock", passwordEncoder.encode("mock"), jsonMapper);
+        return ResponseEntity.ok(authService.createUser(userDataDTO));
     }
 
 }

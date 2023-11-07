@@ -41,7 +41,7 @@ public class JWTService implements IJWTService {
     @Autowired
     private IJsonMapper jsonMapper;
 
-    private static final String SECRET_KEY = "dGV0b2Zv";    //security violation! statics keys in code! consicer moving this to DB !!!
+    private static final String SECRET_KEY = "dGV0b2ZvdGV0b2ZvdGV0b2ZvdGV0b2ZvdGV0b2ZvdGV0b2ZvdGV0b2ZvdGV0b2ZvdGV0b2ZvdGV0b2Zv";    //security violation! statics keys in code! consicer moving this to DB !!!
 
     @Override
     public DataDTO createJWT(DataDTO userDataDTO) throws ServiceException {
