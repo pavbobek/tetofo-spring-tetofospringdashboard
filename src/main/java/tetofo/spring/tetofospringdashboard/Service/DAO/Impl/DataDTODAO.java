@@ -9,14 +9,15 @@ import org.springframework.stereotype.Service;
 
 import tetofo.spring.tetofospringdashboard.Model.Entity.Impl.DataEntity;
 import tetofo.spring.tetofospringdashboard.Model.Repository.DataEntityRepository;
+import tetofo.spring.tetofospringdashboard.Service.DAO.DAOs;
 import tetofo.spring.tetofospringdashboard.Service.DAO.IDAO;
 import tetofo.spring.tetofospringdashboard.Service.DAO.Exception.DAOException;
 import tetofo.spring.tetofospringdashboard.Service.DTO.Impl.DataDTO;
 import tetofo.spring.tetofospringdashboard.Service.Mapper.IEntityMapper;
 import tetofo.spring.tetofospringdashboard.Service.Mapper.Exception.MapperException;
 
-@Service("JPADataDTODAO")
-public class JPADataDTODAO implements IDAO<DataDTO, DataDTO> {
+@Service("DataDTODAO")
+public class DataDTODAO implements IDAO<DataDTO, DataDTO> {
 
     @Autowired
     private IEntityMapper<DataEntity, DataDTO> dataEntityMapper;
@@ -24,10 +25,10 @@ public class JPADataDTODAO implements IDAO<DataDTO, DataDTO> {
     private DataEntityRepository dataEntityRepository;
 
     @Override
-    public void save(DataDTO r) throws DAOException {
+    public DataDTO save(DataDTO r) throws DAOException {
         DAOException.requireNonNull(r, "DataDTO is null.");
         try {
-            dataEntityRepository.save(dataEntityMapper.toEntity(r));
+            return dataEntityMapper.fromEntity(dataEntityRepository.save(dataEntityMapper.toEntity(r)));
         } catch (IllegalArgumentException | MapperException | OptimisticLockingFailureException e) {
             throw new DAOException("Unable to save entity %s.".formatted(r), e);
         }
@@ -50,7 +51,7 @@ public class JPADataDTODAO implements IDAO<DataDTO, DataDTO> {
     @Override
     public DataDTO get(DataDTO s) throws DAOException {        
         try {
-            return dataEntityMapper.fromEntity(dataEntityRepository.findById(getId(s, dataEntityMapper)).orElseThrow(() -> new DAOException("Entity is missing.")));
+            return dataEntityMapper.fromEntity(dataEntityRepository.findById(DAOs.getId(s, dataEntityMapper)).orElseThrow(() -> new DAOException("Entity is missing.")));
         } catch (IllegalArgumentException | MapperException e) {
             throw new DAOException("Unable to retrieve entity", e);
         }
@@ -65,23 +66,10 @@ public class JPADataDTODAO implements IDAO<DataDTO, DataDTO> {
     @Override
     public void delete(DataDTO s) throws DAOException {
         try {
-            dataEntityRepository.deleteById(getId(s, dataEntityMapper));
+            dataEntityRepository.deleteById(DAOs.getId(s, dataEntityMapper));
         } catch (IllegalArgumentException e) {
             throw new DAOException("Unable to delete entity", e);   
         }
-    }
-
-    private static Long getId(DataDTO dataDTO, IEntityMapper<DataEntity, DataDTO> dataEntityMapper) throws DAOException {
-        DAOException.requireNonNull(dataDTO, "DataDTO is null.");
-        DataEntity dataEntity = null;
-        try {
-            dataEntity = dataEntityMapper.toEntity(dataDTO);
-        } catch (MapperException e) {
-            throw new DAOException("Unable to map dto: %s".formatted(dataDTO));
-        }
-        DAOException.requireNonNull(dataEntity, "Mapped entity is null.");
-        DAOException.requireNonNull(dataEntity.getId(), "Mapped entity has no id.");
-        return dataEntity.getId();
     }
     
 }

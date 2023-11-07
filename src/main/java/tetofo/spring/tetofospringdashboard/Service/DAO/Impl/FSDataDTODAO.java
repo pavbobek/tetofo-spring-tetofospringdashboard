@@ -86,7 +86,7 @@ public class FSDataDTODAO implements IDAO<DataDTO, DataDTO> {
     }
 
     @Override
-    public void save(DataDTO r) throws DAOException {
+    public DataDTO save(DataDTO r) throws DAOException {
         throw new DAOException("Unimplemented method 'create'");
     }
     
