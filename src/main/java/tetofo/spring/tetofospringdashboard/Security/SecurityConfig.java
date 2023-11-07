@@ -41,10 +41,10 @@ public class SecurityConfig {
 		http
 			.csrf(csrf -> csrf.disable())
 			.authorizeHttpRequests(autorize -> {
-				autorize.requestMatchers(AntPathRequestMatcher.antMatcher("/auth/**"))
-					.permitAll()
-				.anyRequest()
-				.authenticated();
+				autorize
+					.requestMatchers(AntPathRequestMatcher.antMatcher("/auth/**")).permitAll()
+					.requestMatchers(AntPathRequestMatcher.antMatcher("/mock/**")).permitAll()
+					.anyRequest().authenticated();
 			})
 			.sessionManagement((session) -> session
 				.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
