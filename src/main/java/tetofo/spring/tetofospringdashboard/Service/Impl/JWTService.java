@@ -10,6 +10,7 @@ import java.util.function.Function;
 import javax.crypto.SecretKey;
 
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Service;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
@@ -30,6 +31,7 @@ import tetofo.spring.tetofospringdashboard.Service.Exception.ServiceException;
  * @mail pavbobek@seznam.cz
  * 
  */
+@Service
 public class JWTService implements IJWTService {
 
     private static final String SECRET_KEY = "dGV0b2Zv";    //security violation! statics keys in code! consicer moving this to DB !!!
